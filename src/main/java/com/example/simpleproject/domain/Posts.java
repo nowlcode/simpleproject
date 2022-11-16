@@ -21,18 +21,15 @@ public class Posts extends BaseTimeEntity {
     @Column(length=500, nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String writer;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User author;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private int view;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 
     @OneToMany(mappedBy = "posts", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc")

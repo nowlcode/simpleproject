@@ -1,4 +1,4 @@
 package com.example.simpleproject.infrastructure.persistence;
 
-public class CommentRepository {
+public interface CommentRepository {
 }
