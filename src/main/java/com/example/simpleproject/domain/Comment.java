@@ -1,41 +1,21 @@
 package com.example.simpleproject.domain;
 
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Table(name = "comments")
-@Entity
-@Builder
-public class Comment {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Comment extends Timestamped{
+    @Id @GeneratedValue
     private Long id;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @ManyToOne
+    @JoinColumn
+    private User writer;
+
+    @Column(name = "comment")
     private String comment;
-
-    @Column(name = "created_date")
-    @CreatedDate
-    private String createdDate;
-
-    @Column(name = "modified_date")
-    @LastModifiedDate
-    private String modifiedDate;
-
-    @ManyToOne
-    @JoinColumn(name = "posts_id")
-    private Posts posts;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    public void update(String comment){
-        this.comment = comment;
-    }
 }

@@ -1,44 +1,29 @@
 package com.example.simpleproject.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Entity
-@Builder
-public class User extends BaseTimeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class User {
+    @Id @GeneratedValue
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(name = "username", nullable = false, unique = true, length = 30)
     private String username;
 
-    @Column(nullable = false, unique = true)
-    private String nickname;
-
-    @Column(length = 100, nullable = false)
-    private String password;
-
-    @Column(nullable = false, length = 50, unique = true)
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role", nullable = false)
     private Role role;
 
-    public User updateModifiedDate(){
-        this.onPreUpdate();
-        return this;
-    }
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-    public String getRoleValue(){
-        return this.role.getValue();
-    }
+    @Column(name = "password", nullable = false, length = 30)
+    private String password;
+
+
 }
